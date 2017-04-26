@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>AngularJs</title>
+	<script type="text/javascript" src="../../lib/jquery.js"></script>
+	<script type="text/javascript" src="../../lib/angular.js"></script>
+	<script type="text/javascript" src="../js/app.js"></script>
+	<link rel="stylesheet" type="text/css" href="../css/lib/bootstrap.css">
+</head>
+<body>
+
+<p>Coucou</p>
+<div ng-app="myModule">
+	<div ng-controller="myCtrl">
+		{{message}}
+		<br><br><br><br>
+		{{tab}}
+		<br><br><br><br>
+		<table class="table">
+		<tr><th>Nom</th>
+			<th>Prenom</th>
+			<th>Date</th>
+		</tr>
+		<tr ng-repeat="x in tab">
+			<td>{{x.nom| uppercase}}</td>
+			<td>{{x.prenom| lowercase}}</td>
+			<td>{{x.date| date:"yyyy-MM-dd"}}</td>
+		</tr>
+		</table>
+
+	</div>
+</div>
+
+</body>
+</html>

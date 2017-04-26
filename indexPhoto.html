@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>AngularJs</title>
+	<script type="text/javascript" src="../../lib/jquery.js"></script>
+	<script type="text/javascript" src="../../lib/angular.js"></script>
+	<script type="text/javascript" src="../js/appPhoto.js"></script>
+	<link rel="stylesheet" type="text/css" href="../css/lib/bootstrap.css">
+</head>
+<body>
+
+<p>Coucou</p>
+<div ng-app="myModule">
+	<div ng-controller="myCtrl">
+		{{photo.nom}}
+		{{photo.lieu}}
+		<img ng-src="{{photo.path}}" alt="{{photo.lieu}}">
+
+	</div>
+</div>
+
+</body>
+</html>

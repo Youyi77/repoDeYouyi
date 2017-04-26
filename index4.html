@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>AngularJs</title>
+	<script type="text/javascript" src="../../lib/jquery.js"></script>
+	<script type="text/javascript" src="../../lib/angular.js"></script>
+	<script type="text/javascript" src="../js/app4.js"></script>
+</head>
+<style type="text/css">
+	.test{
+	color:red;}
+</style>
+<body>
+
+<p>Coucou</p>
+<div ng-app="myModule">
+	<div ng-controller="myCtrl">
+
+	<label>verif</label>
+	<input type="checkbox"  ng-model="verif">
+	<br>
+	<input type="number" min=0 max=5 ng-model="w">
+	<input type="text"  ng-model="motcle">
+	<input type="checkbox"  ng-model="exacte">
+	<table ng-hide="verif" class="table table-hover" style="text-align:center">
+		<tr>
+			<td ng-hide="verif">Nom</td>
+			<td ng-hide="verif">Nb aime</td>
+			<td ng-hide="verif">Nb aime pas</td>
+			<td ng-hide="verif">J'aime</td>
+			<td ng-hide="verif">Je n'aime pas</td>
+		</tr>
+		<tr ng-repeat="x in tab|limitTo:w |orderBy:'-valeur1'|filter:motcle:exacte">
+			<td>{{x.nom}}</td>
+			<td ng-class="{test:x.valeur1>10}">{{x.valeur1}}</td>
+			<td>{{x.valeur2}}</td>
+			<td><button class="btn btn-info" ="btn btn-info" ng-click="myF(x);"> J'aime</button></td>
+			<td><button class="btn btn-danger" ng-click="myF2(x);"> J'aime Pas</button></td>
+		</tr>
+	</table>
+		<br><br><br><br><br>
+
+
+	</div>
+</div>
+
+</body>
+</html>
+<!-- le contraire de ng-hide est ng-show qui fonctionne de la même manière-->
