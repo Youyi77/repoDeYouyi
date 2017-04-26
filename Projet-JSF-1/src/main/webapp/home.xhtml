@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>JSF</title>
+</h:head>
+<h:body>
+	<h:form>
+		<h:outputText value="ma première page JSF"></h:outputText>
+		<h:inputText value="#{userBean.nbr1}"></h:inputText>
+		<h:inputText value="#{userBean.nbr2}"></h:inputText>
+		<h:commandButton value="calculer"
+			action="#{userBean.calculer(userBean.nbr1,userBean.nbr2)}"></h:commandButton>
+	</h:form>
+	<h:outputText value="#{userBean.result}"></h:outputText>
+	<br></br>
+	<h:form>
+		<h:messages></h:messages>
+		<h:inputText value="#{userBean.nomUser}" required="true"
+			requiredMessage="Ce champs ne doit pas être nul"></h:inputText>
+		<h:inputText value="#{userBean.pseudoUser}" required="true"></h:inputText>
+		<h:commandButton value="addUser"
+			action="#{userBean.addUser(userBean.nomUser, userBean.pseudoUser)}" update=":getAllData"></h:commandButton>
+	</h:form>
+	<br></br>
+	<h:form>
+		<h:commandButton value="getAll" action="#{userBean.getAll()}"></h:commandButton>
+		
+	</h:form>
+	<p:dataTable id="getAllData" value="#{userBean.users}" var="u" style="text-align:center;">
+		<p:column>
+			<h:outputText value="#{u.idUser}"></h:outputText>
+		</p:column>
+		<p:column>
+			<h:outputText value="#{u.nomUser}"></h:outputText>
+		</p:column>
+		<p:column>
+			<h:outputText value="#{u.pseudoUser}"></h:outputText>
+		</p:column>
+		<p:column style="width:32px;text-align: center">
+             <p:commandButton action = "#{userBean.getOne(u.idUser)}"  update=":carDetail" oncomplete="PF('carDialog').show()" icon="ui-icon-search" title="View">
+            </p:commandButton>
+        </p:column>
+		<p:column >
+			<h:form>
+				<p:commandButton value="supprimer #{u.idUser}" update=":getAllData" 
+					action="#{userBean.delete(u.idUser)}"></p:commandButton>
+			</h:form>
+		</p:column>
+		<p:column>
+			<h:form>
+				
+			 <p:commandButton action = "#{userBean.getOne(u.idUser)}"  update=":userDetail" oncomplete="PF('userDialog').show()" value="modifier" title="Update">
+            </p:commandButton>
+			</h:form>
+		</p:column>
+	</p:dataTable>
+
+	<br></br>
+	<h:form>
+		<h:messages></h:messages>
+		<h:inputText value="#{userBean.idUser2}" required="true"
+			requiredMessage="Ce champs ne doit pas être nul"></h:inputText>
+		<h:inputText value="#{userBean.nomUser2}" required="true"
+			requiredMessage="Ce champs ne doit pas être nul"></h:inputText>
+		<h:inputText value="#{userBean.pseudoUser2}" required="true"></h:inputText>
+		<h:commandButton value="update"
+			action="#{userBean.updateUser(userBean.idUser2,userBean.nomUser2, userBean.pseudoUser2)}"></h:commandButton>
+	</h:form>
+	<p:dialog header="User Info" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+        <p:outputPanel id="carDetail" style="text-align:center;">
+            <p:panelGrid  columns="2" rendered="#{not empty userBean.user}" columnClasses="label,value">
+ 
+                <h:outputText value="Id:" />
+                <h:outputText value="#{userBean.user.idUser}" />
+ 
+                <h:outputText value="Nom" />
+                <h:outputText value="#{userBean.user.nomUser}" />
+ 
+                <h:outputText value="Pseudo:" />
+                <h:outputText value="#{userBean.user.pseudoUser}" />
+ 
+            </p:panelGrid>
+        </p:outputPanel>
+    </p:dialog>
+	
+
+
+
+
+
+
+
+
+	<p:dialog header="User Info" widgetVar="userDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+        <p:outputPanel id="userDetail" style="text-align:center;">
+        <h:form>
+            <p:panelGrid  columns="2" rendered="#{not empty userBean.user}" columnClasses="label,value">
+ 			
+                <h:outputText value="Id:" />
+                <h:outputText value="#{userBean.user.idUser}" />
+ 
+                <h:outputText value="Nom" />
+                <h:inputText value="#{userBean.user.nomUser}" />
+ 
+                <h:outputText value="Pseudo:" />
+                <h:inputText value="#{userBean.user.pseudoUser}" />
+                
+                <h:commandButton value="update" action="#{userBean.updateUser(userBean.user.idUser,userBean.user.nomUser,userBean.user.pseudoUser)}"></h:commandButton>
+ 			
+            </p:panelGrid>
+            </h:form>
+        </p:outputPanel>
+    </p:dialog>
+
+
+
+
+
+<h:form>
+<h:commandButton value="Forward" ajax="true">
+ 	<p:ajax update="x" event="click" listener="#{userBean.forward}"></p:ajax></h:commandButton>
+
+<h:commandButton value="Redirect" action="#{userBean.redirect()}"></h:commandButton>
+<h:outputText id="x" value="#{userBean.label}"></h:outputText>
+
+</h:form>
+
+
+
+
+</h:body>
+
+</html>
